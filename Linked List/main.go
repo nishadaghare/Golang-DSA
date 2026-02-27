@@ -14,6 +14,11 @@ type LinkedList struct {
 // Insert At Beginning
 func (l *LinkedList) InsertAtBeginning(val int) {
 	newNode := &Node{Val: val}
+
+	if l.Head == nil {
+		l.Head = newNode
+		return
+	}
 	newNode.Next = l.Head
 	l.Head = newNode
 }
