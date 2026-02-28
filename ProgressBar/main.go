@@ -11,7 +11,7 @@ type Progress struct {
 	CurrentProgress int
 }
 
-func progressCalculator(waitTime int, noOfDevices int, progress chan Progress, wg *sync.WaitGroup) {
+func progressCalculator(waitTime int, progress chan Progress, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	// ticker for estimated time updates
@@ -58,14 +58,13 @@ func printProgress(progress chan Progress, wg *sync.WaitGroup) {
 func main() {
 	var wg sync.WaitGroup
 
-	noOfDevices := 8
 	waitTime := 20
 
 	progressChan := make(chan Progress)
 
 	wg.Add(2)
 
-	go progressCalculator(waitTime, noOfDevices, progressChan, &wg)
+	go progressCalculator(waitTime, progressChan, &wg)
 	go printProgress(progressChan, &wg)
 
 	wg.Wait()
